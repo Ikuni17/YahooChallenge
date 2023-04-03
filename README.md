@@ -1,4 +1,9 @@
-# Getting Started with Create React App
+# Simple TicTacToe
+- One or two player game
+- Simple AI for single player
+- Indicate winner or tie
+
+## Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
