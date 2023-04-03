@@ -1,6 +1,10 @@
 import React from 'react';
-import {MyContainer} from '../../components';
+import {MyContainer, TicTacToe} from '../../components';
 
 export const Home: React.FC = () => {
-  return <MyContainer>{'Home'}</MyContainer>;
+  return (
+    <MyContainer>
+      <TicTacToe />
+    </MyContainer>
+  );
 };
