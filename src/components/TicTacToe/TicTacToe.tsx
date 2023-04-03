@@ -16,7 +16,7 @@ export const TicTacToe: React.FC = () => {
     (squareIndex: number) => {
       // TODO: disallow clicking same square
 
-      const nextBoardState = boardState;
+      const nextBoardState = [...boardState];
       nextBoardState[squareIndex] = currentPlayerSymbol;
       setBoardState(nextBoardState);
 
@@ -27,10 +27,10 @@ export const TicTacToe: React.FC = () => {
     },
     [boardState, isPlayerOneTurn, currentPlayerSymbol]
   );
-  const resetGame = useCallback(
-    () => setBoardState(EMPTY_BOARD),
-    [setBoardState]
-  );
+  const resetGame = useCallback(() => {
+    setIsPlayerOneTurn(true);
+    setBoardState(EMPTY_BOARD);
+  }, []);
 
   console.log(boardState);
 
