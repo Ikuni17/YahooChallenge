@@ -1,5 +1,5 @@
 import React, {useState, useCallback, useEffect} from 'react';
-import {GameState, SquareState} from './TicTacToe.types';
+import {GameState, BoardState, SquareState} from './TicTacToe.types';
 import {Board} from './Board';
 import {MyGroup} from '../MyGroup';
 import {MyStack} from '../MyStack';
@@ -25,7 +25,7 @@ const WINNING_LINES = [
   [0, 4, 8],
   [2, 4, 6]
 ];
-const checkWinner = (boardState: SquareState[]) => {
+const checkWinner = (boardState: BoardState) => {
   for (const line of WINNING_LINES) {
     const firstLineSymbol = boardState[line[0]];
 
@@ -41,8 +41,25 @@ const checkWinner = (boardState: SquareState[]) => {
   return null;
 };
 
+const getRandomEmptyIndex = (boardState: BoardState) => {
+  const randomIndex = Math.floor(Math.random() * boardState.length);
+  for (let i = randomIndex; i < boardState.length; i++) {
+    if (boardState[i] === SquareState.empty) {
+      return i;
+    }
+  }
+  for (let i = randomIndex - 1; i >= 0; i--) {
+    if (boardState[i] === SquareState.empty) {
+      return i;
+    }
+  }
+
+  // Since the AI always goes second, guaranteed to find an index
+  return -1;
+};
+
 export const TicTacToe: React.FC = () => {
-  const [boardState, setBoardState] = useState<SquareState[]>(EMPTY_BOARD);
+  const [boardState, setBoardState] = useState<BoardState>(EMPTY_BOARD);
   const [gameState, setGameState] = useState<GameState>(INITIAL_GAME_STATE);
   const [numPlayers, setNumPlayers] = useState<number>(1);
 
@@ -77,8 +94,7 @@ export const TicTacToe: React.FC = () => {
   );
 
   const handleAIMove = useCallback(() => {
-    const firstEmptyIndex = boardState.findIndex(s => s === SquareState.empty);
-    handlePlayerMove(firstEmptyIndex);
+    handlePlayerMove(getRandomEmptyIndex(boardState));
   }, [boardState, handlePlayerMove]);
 
   const resetGame = useCallback(() => {

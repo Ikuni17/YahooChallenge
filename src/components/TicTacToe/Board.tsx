@@ -1,11 +1,11 @@
 import React from 'react';
-import {SquareState} from './TicTacToe.types';
+import {BoardState} from './TicTacToe.types';
 import {MyGroup} from '../MyGroup';
 import {Square} from './Square';
 import {MyStack} from '../MyStack';
 
 interface BoardProps {
-  boardState: SquareState[];
+  boardState: BoardState;
   handlePlayerMove: (squareIndex: number) => void;
 }
 

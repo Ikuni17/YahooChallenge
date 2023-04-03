@@ -4,6 +4,8 @@ export enum SquareState {
   O = 'O'
 }
 
+export type BoardState = SquareState[];
+
 export interface GameState {
   currentPlayerSymbol: SquareState.X | SquareState.O;
   isDraw: boolean;
