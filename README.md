@@ -1,4 +1,5 @@
 # Simple TicTacToe
+- [Rules and Description](https://en.wikipedia.org/wiki/Tic-tac-toe)
 - One or two player game
 - Simple AI for single player
 - Indicate winner or tie
