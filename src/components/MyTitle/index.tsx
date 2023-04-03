@@ -3,7 +3,7 @@ import {Title, TitleProps} from '@mantine/core';
 
 const defaultProps: Partial<TitleProps> = {
   order: 3,
-  color: 'indigo',
+  color: 'cyan',
   align: 'center'
 };
 
