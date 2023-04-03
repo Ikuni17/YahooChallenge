@@ -9,6 +9,7 @@ import {MyTitle} from '../MyTitle';
 const EMPTY_BOARD = Array(9).fill(SquareState.empty);
 const INITIAL_GAME_STATE: GameState = {
   currentPlayerSymbol: SquareState.X,
+  isDraw: false,
   moveNumber: 1,
   outputString: `Current Player: ${SquareState.X}`,
   winner: null
@@ -44,8 +45,8 @@ export const TicTacToe: React.FC = () => {
   const [gameState, setGameState] = useState<GameState>(INITIAL_GAME_STATE);
   const handlePlayerMove = useCallback(
     (squareIndex: number) => {
-      // Disallow clicking same square
-      if (boardState[squareIndex]) return;
+      // Disallow state changes on same square or when game is over
+      if (boardState[squareIndex] || gameState.winner) return;
 
       const {currentPlayerSymbol, moveNumber} = gameState;
       const nextBoardState = [...boardState];
@@ -56,7 +57,7 @@ export const TicTacToe: React.FC = () => {
       if (winner) {
         setGameState({...gameState, winner, outputString: `${winner} WINS!`});
       } else if (moveNumber === boardState.length) {
-        setGameState({...gameState, outputString: 'DRAW'});
+        setGameState({...gameState, isDraw: true, outputString: 'DRAW'});
       } else {
         // Setup next turn
         const nextPlayerSymbol =
@@ -80,7 +81,12 @@ export const TicTacToe: React.FC = () => {
     <MyGroup spacing={'xl'} align="flex-start">
       <Board boardState={boardState} handlePlayerMove={handlePlayerMove} />
       <MyStack>
-        <MyTitle align="left">{gameState.outputString}</MyTitle>
+        <MyTitle
+          align="left"
+          color={gameState.isDraw || gameState.winner ? 'pink' : 'cyan'}
+        >
+          {gameState.outputString}
+        </MyTitle>
         <MyButton onClick={resetGame}>{'Reset Game'}</MyButton>
       </MyStack>
     </MyGroup>

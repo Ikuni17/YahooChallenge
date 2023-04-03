@@ -6,6 +6,7 @@ export enum SquareState {
 
 export interface GameState {
   currentPlayerSymbol: SquareState.X | SquareState.O;
+  isDraw: boolean;
   moveNumber: number;
   outputString: string;
   winner: null | SquareState.X | SquareState.O;
