@@ -1,10 +1,11 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useEffect} from 'react';
 import {GameState, SquareState} from './TicTacToe.types';
 import {Board} from './Board';
 import {MyGroup} from '../MyGroup';
 import {MyStack} from '../MyStack';
 import {MyButton} from '../MyButton';
 import {MyTitle} from '../MyTitle';
+import {MyNumberInput} from '../MyNumberInput';
 
 const EMPTY_BOARD = Array(9).fill(SquareState.empty);
 const INITIAL_GAME_STATE: GameState = {
@@ -43,6 +44,8 @@ const checkWinner = (boardState: SquareState[]) => {
 export const TicTacToe: React.FC = () => {
   const [boardState, setBoardState] = useState<SquareState[]>(EMPTY_BOARD);
   const [gameState, setGameState] = useState<GameState>(INITIAL_GAME_STATE);
+  const [numPlayers, setNumPlayers] = useState<number>(1);
+
   const handlePlayerMove = useCallback(
     (squareIndex: number) => {
       // Disallow state changes on same square or when game is over
@@ -72,10 +75,22 @@ export const TicTacToe: React.FC = () => {
     },
     [boardState, gameState]
   );
+
+  const handleAIMove = useCallback(() => {
+    const firstEmptyIndex = boardState.findIndex(s => s === SquareState.empty);
+    handlePlayerMove(firstEmptyIndex);
+  }, [boardState, handlePlayerMove]);
+
   const resetGame = useCallback(() => {
     setGameState(INITIAL_GAME_STATE);
     setBoardState(EMPTY_BOARD);
   }, []);
+
+  useEffect(() => {
+    if (numPlayers === 1 && gameState.currentPlayerSymbol === SquareState.O) {
+      handleAIMove();
+    }
+  }, [boardState, gameState, handleAIMove, numPlayers]);
 
   return (
     <MyGroup spacing={'xl'} align="flex-start">
@@ -88,6 +103,14 @@ export const TicTacToe: React.FC = () => {
           {gameState.outputString}
         </MyTitle>
         <MyButton onClick={resetGame}>{'Reset Game'}</MyButton>
+        <MyNumberInput
+          disabled={gameState.moveNumber > 1}
+          label="Number of Players"
+          max={2}
+          min={1}
+          onChange={v => setNumPlayers(v ? v : 1)}
+          value={numPlayers}
+        />
       </MyStack>
     </MyGroup>
   );
