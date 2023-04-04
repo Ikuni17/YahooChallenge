@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/YahooChallenge/static/js/main.df59f5a1.js",
+    "main.js": "/YahooChallenge/static/js/main.958268dd.js",
     "index.html": "/YahooChallenge/index.html",
-    "main.df59f5a1.js.map": "/YahooChallenge/static/js/main.df59f5a1.js.map"
+    "main.958268dd.js.map": "/YahooChallenge/static/js/main.958268dd.js.map"
   },
   "entrypoints": [
-    "static/js/main.df59f5a1.js"
+    "static/js/main.958268dd.js"
   ]
 }
