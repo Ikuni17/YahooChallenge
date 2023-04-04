@@ -109,7 +109,7 @@ export const TicTacToe: React.FC = () => {
   }, [boardState, gameState, handleAIMove, numPlayers]);
 
   return (
-    <MyGroup spacing={'xl'} align="flex-start">
+    <MyGroup spacing={'xl'} align="flex-start" position="center">
       <Board boardState={boardState} handlePlayerMove={handlePlayerMove} />
       <MyStack>
         <MyTitle
