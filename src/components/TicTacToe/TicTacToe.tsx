@@ -103,7 +103,11 @@ export const TicTacToe: React.FC = () => {
   }, []);
 
   useEffect(() => {
-    if (numPlayers === 1 && gameState.currentPlayerSymbol === SquareState.O) {
+    if (
+      numPlayers === 1 &&
+      gameState.currentPlayerSymbol === SquareState.O &&
+      !gameState.winner
+    ) {
       handleAIMove();
     }
   }, [boardState, gameState, handleAIMove, numPlayers]);
